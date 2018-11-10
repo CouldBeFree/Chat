@@ -20,3 +20,18 @@ body{
 .wrapper{
     margin-top: 40px;
 }
+
+.chat{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    top: 20px;
+}
+
+.chat button{
+    cursor: pointer;
+}
+
+.chat input{
+    margin: 10px 0;
+}

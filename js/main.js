@@ -1,40 +1,27 @@
-class User {
-    constructor(name){
-        this.name = name;
-    }
+class Chat {
+    constructor(chatName, user){
+        this.chats = [];
+        this.chatUsers = [];
 
-    sendUser(name, random){
-        axios.post('http://localhost:3000/users', {
-            name: this.name,
-            id: random
-        })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error.response);
-            });
+        if(!chatName){
+            throw new Error('Chat name is not passed')
+        }
+
+        let chatObj = {nameChat: chatName};
+        this.chats.push(chatObj);
+
+        this.connectUser = function (user) {
+            
+        }
     }
 }
 
-let form = document.getElementById('form');
+let x = new Chat('General', 'Anya');
+console.log(x);
 
-form.addEventListener('submit', getUserName);
-
-function getUserName(e) {
-    let userName = document.getElementById("name").value;
-    e.preventDefault();
-    let someName = new User(userName);
-    let randomID = Math.random() * (1000 - 1) + 1;
-    //let sliced = randomID.toString().slice(0, 10);
-    let sliced = Math.floor(randomID).toString();
-    someName.sendUser(userName, sliced);
-}
-
-axios.get('http://localhost:3000/users')
-    .then(function (response) {
-        console.log(response.data);
-    })
-    .catch(function (error) {
-        console.log(error);
-    });
+let test = [
+    {
+        chatName: 'General',
+        users: ['Dima']
+    }
+];
