@@ -8,7 +8,8 @@ class Chat {
 
         let chatObj = {
             nameChat: chatName,
-            users: []
+            users: [],
+            chatHistory: []
         };
         this.chats.push(chatObj);
 
@@ -23,15 +24,29 @@ class Chat {
             }
         };
 
-        this.disconnectUSer = function (user) {
+        this.disconnectUser = function (user) {
             let chatArr = this.chats[0].users;
             let userIndex = chatArr.indexOf(user);
             return chatArr.splice(userIndex, 1)
-        }
+        };
+
+        this.sendMessage = function (user, message) {
+            let chatArr = this.chats[0].users.filter(item => item === user);
+            if(!chatArr.length){
+                throw new Error('User is not connected to this chat')
+            }
+            let userMessage = {
+                user: user,
+                message: message
+            };
+            this.chats[0].chatHistory.push(userMessage);
+            return message
+        };
     }
 }
 
 let x = new Chat('General');
 x.connectUser('Anya', 'Sasha', 'Dima', 'Katya');
-x.disconnectUSer('Katya');
+x.disconnectUser('Katya');
+x.sendMessage('Sasha', 'Hello guys');
 console.log(x);
