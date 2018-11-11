@@ -9,8 +9,7 @@ class Chat {
         let chatObj = {
             nameChat: chatName,
             users: [],
-            chatHistory: [],
-            read: false
+            chatHistory: []
         };
         this.chats.push(chatObj);
 
@@ -43,7 +42,8 @@ class Chat {
             let userMessage = {
                 user: user,
                 message: message,
-                time: `${hour}:${minute}:${second}`
+                time: `${hour}:${minute}:${second}`,
+                read: false
             };
             this.chats[0].chatHistory.push(userMessage);
             return message
@@ -68,6 +68,18 @@ class Chat {
                     console.log(`[${history[i].user}] [${history[i].message}] ${history[i].time}`)
                 }
             }
+        };
+
+        this.unreadedMessages = function (user, num) {
+            let test = this.chats[0].chatHistory;
+            console.log(test);
+            let filtered = test.filter(item => item.user === user && item.read === false);
+            console.log(filtered);
+            // let y = filtered.map(item => !item.read);
+            // console.log(y);
+            let qwe = Object.keys(filtered).forEach(function (key) {
+                return filtered[key] = true;
+            });
         }
     }
 }
@@ -80,4 +92,5 @@ x.sendMessage('Sasha', 'How are you doing');
 x.sendMessage('Dima', 'I am fine, thanks!');
 x.sendMessage('Katya', 'I am doing well! What about you?');
 x.showMessage();
+x.unreadedMessages('Sasha');
 console.log(x);
