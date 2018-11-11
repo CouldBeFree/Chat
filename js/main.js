@@ -9,7 +9,8 @@ class Chat {
         let chatObj = {
             nameChat: chatName,
             users: [],
-            chatHistory: []
+            chatHistory: [],
+            read: false
         };
         this.chats.push(chatObj);
 
@@ -35,18 +36,48 @@ class Chat {
             if(!chatArr.length){
                 throw new Error('User is not connected to this chat')
             }
+            let date = new Date;
+            let hour = date.getHours();
+            let minute = date.getMinutes();
+            let second = date.getSeconds();
             let userMessage = {
                 user: user,
-                message: message
+                message: message,
+                time: `${hour}:${minute}:${second}`
             };
             this.chats[0].chatHistory.push(userMessage);
             return message
         };
+        
+        this.showMessage = function (index, count) {
+            if(arguments.length === 2) {
+                let history = this.chats[0].chatHistory.slice(index, count);
+                for(let i = 0; i < history.length; i++){
+                    console.log(`[${history[i].user}] [${history[i].message}] ${history[i].time}`)
+                }
+            }
+            else if(arguments.length === 1){
+                let history = this.chats[0].chatHistory.slice(0, count);
+                for(let i = 0; i < history.length; i++){
+                    console.log(`[${history[i].user}] [${history[i].message}] ${history[i].time}`)
+                }
+            }
+            else if (arguments.length === 0){
+                let history = this.chats[0].chatHistory.slice(0, 10);
+                for(let i = 0; i < history.length; i++){
+                    console.log(`[${history[i].user}] [${history[i].message}] ${history[i].time}`)
+                }
+            }
+        }
     }
 }
 
 let x = new Chat('General');
 x.connectUser('Anya', 'Sasha', 'Dima', 'Katya');
-x.disconnectUser('Katya');
+// x.disconnectUser('Katya');
 x.sendMessage('Sasha', 'Hello guys');
+x.sendMessage('Sasha', 'How are you doing');
+x.sendMessage('Dima', 'I am fine, thanks!');
+x.sendMessage('Katya', 'I am doing well! What about you?');
+x.showMessage();
 console.log(x);
