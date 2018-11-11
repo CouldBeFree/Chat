@@ -1,7 +1,6 @@
 class Chat {
     constructor(chatName){
         this.chats = [];
-        this.chatUsers = [];
 
         if(!chatName){
             throw new Error('Chat name is not passed')
@@ -22,10 +21,17 @@ class Chat {
             for(let i=0; i<filtered.length; i++){
                 targetObj.users.push(filtered[i]);
             }
+        };
+
+        this.disconnectUSer = function (user) {
+            let chatArr = this.chats[0].users;
+            let userIndex = chatArr.indexOf(user);
+            return chatArr.splice(userIndex, 1)
         }
     }
 }
 
 let x = new Chat('General');
 x.connectUser('Anya', 'Sasha', 'Dima', 'Katya');
+x.disconnectUSer('Katya');
 console.log(x);
