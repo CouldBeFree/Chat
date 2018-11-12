@@ -48,7 +48,7 @@ class Chat {
             this.chats[0].chatHistory.push(userMessage);
             return message
         };
-        
+
         this.showMessage = function (index, count) {
             if(arguments.length === 2) {
                 let history = this.chats[0].chatHistory.slice(index, count);
@@ -70,23 +70,16 @@ class Chat {
             }
         };
 
-        this.unreadedMessages = function (user, num) {
-            let test = this.chats[0].chatHistory;
-            console.log(test);
-            let filtered = test.filter(item => item.user === user && item.read === false);
-            console.log(filtered);
-            // let y = filtered.map(item => !item.read);
-            // console.log(y);
-            let qwe = Object.keys(filtered).forEach(function (key) {
-                return filtered[key] = true;
-            });
+        this.unreadedMessages = function (user) {
+            let userArr = this.chats[0].chatHistory;
+            userArr.filter(item => item.user === user).map(item => item.read = true);
+            return userArr;
         }
     }
 }
 
 let x = new Chat('General');
 x.connectUser('Anya', 'Sasha', 'Dima', 'Katya');
-// x.disconnectUser('Katya');
 x.sendMessage('Sasha', 'Hello guys');
 x.sendMessage('Sasha', 'How are you doing');
 x.sendMessage('Dima', 'I am fine, thanks!');
